@@ -21,3 +21,7 @@ web/dist/
 Thumbs.db
 .vscode/
 .idea/
+
+# Claude Code session state — keep launch.json (project config), drop the rest.
+.claude/*
+!.claude/launch.json
