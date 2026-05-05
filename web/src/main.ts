@@ -123,10 +123,11 @@ async function main() {
   await new Promise<void>((res) => map.on("load", () => res()));
 
   setStatus("Loading map data…");
-  const [hexes, boundary, transit] = await Promise.all([
+  const [hexes, boundary, transit, contours] = await Promise.all([
     loadJSON<GeoJSON.FeatureCollection>("hexes.geojson"),
     loadJSON<GeoJSON.FeatureCollection>("boundary.geojson").catch(() => null),
     loadJSON<GeoJSON.FeatureCollection>("transit-shapes.geojson").catch(() => null),
+    loadJSON<GeoJSON.FeatureCollection>("contours.geojson").catch(() => null),
   ]);
 
   // The "outside-the-city" donut polygon: world bbox with Sheffield punched
@@ -165,6 +166,33 @@ async function main() {
       "fill-antialias": false,
     },
   });
+
+  // Contour lines (50 m intervals) above the heatmap. Major lines (every
+  // 100 m) get a touch more weight; minor ones are nearly transparent so
+  // they read as gentle topo cues without competing with the colours.
+  if (contours) {
+    map.addSource("contours", { type: "geojson", data: contours });
+    map.addLayer({
+      id: "contours-minor",
+      type: "line",
+      source: "contours",
+      filter: ["!", ["get", "major"]],
+      paint: {
+        "line-color": "rgba(255, 255, 255, 0.07)",
+        "line-width": 0.4,
+      },
+    });
+    map.addLayer({
+      id: "contours-major",
+      type: "line",
+      source: "contours",
+      filter: ["==", ["get", "major"], true],
+      paint: {
+        "line-color": "rgba(255, 255, 255, 0.18)",
+        "line-width": 0.7,
+      },
+    });
+  }
 
   // Transit network underlay — bus + tram route shapes from GTFS.
   // Buses are drawn as faint blue lines: where many routes share a corridor,
@@ -393,6 +421,26 @@ async function main() {
     }
   });
   map.on("mouseleave", HEXES_LAYER, () => tooltip.classList.add("hidden"));
+
+  // Layer toggles — sync visibility from checkbox state, then listen for changes.
+  const LAYER_GROUPS: Record<string, string[]> = {
+    tram: ["transit-tram-glow", "transit-tram"],
+    bus: ["transit-bus-glow", "transit-bus"],
+    contours: ["contours-minor", "contours-major"],
+  };
+  function applyLayerVisibility(group: string, visible: boolean) {
+    const ids = LAYER_GROUPS[group] ?? [];
+    for (const id of ids) {
+      if (map.getLayer(id)) {
+        map.setLayoutProperty(id, "visibility", visible ? "visible" : "none");
+      }
+    }
+  }
+  document.querySelectorAll<HTMLInputElement>('#layers input[type="checkbox"]').forEach((cb) => {
+    const group = cb.dataset.layer!;
+    applyLayerVisibility(group, cb.checked);
+    cb.addEventListener("change", () => applyLayerVisibility(group, cb.checked));
+  });
 
   // Search.
   const searchForm = document.getElementById("search") as HTMLFormElement;
