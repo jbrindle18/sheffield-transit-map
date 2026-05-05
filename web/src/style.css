@@ -1,0 +1,408 @@
+/* Kinetic Dark — adapted from style guide tokens for this single-view map. */
+
+:root {
+  --bg: #131313;
+  --surface: #1c1b1b;
+  --surface-high: #2a2a2a;
+  --on-surface: #e5e2e1;
+  --on-surface-variant: #c2c6d6;
+  --outline: #424754;
+  --outline-strong: #8c909f;
+
+  --primary: #adc6ff;
+  --primary-container: #4d8eff;
+  --on-primary-container: #00285d;
+
+  --panel-bg: rgba(23, 23, 23, 0.72);
+  --panel-border: rgba(255, 255, 255, 0.08);
+  --panel-blur: blur(14px);
+
+  --r-sm: 0.5rem;
+  --r-md: 0.75rem;
+  --r-lg: 1.5rem;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 14px;
+  line-height: 20px;
+  background: var(--bg);
+  color: var(--on-surface);
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+#app { position: relative; width: 100vw; height: 100vh; }
+#map { position: absolute; inset: 0; }
+
+/* Floating glassmorphic panels. */
+.panel {
+  position: absolute;
+  background: var(--panel-bg);
+  backdrop-filter: var(--panel-blur);
+  -webkit-backdrop-filter: var(--panel-blur);
+  border: 1px solid var(--panel-border);
+  border-radius: var(--r-lg);
+  padding: 20px 22px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+  color: var(--on-surface);
+}
+
+.eyebrow {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--on-surface-variant);
+  margin-bottom: 10px;
+}
+
+#title-card {
+  top: 16px;
+  left: 16px;
+  width: 360px;
+}
+#title-card h1 {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+  margin: 0 0 10px;
+}
+#title-card p {
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--on-surface-variant);
+  margin: 0 0 14px;
+}
+#title-card strong {
+  color: var(--on-surface);
+  font-feature-settings: "tnum";
+}
+
+#search {
+  display: flex;
+  align-items: stretch;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--panel-border);
+  border-radius: 999px;
+  overflow: hidden;
+  transition: border-color 120ms ease, background 120ms ease;
+}
+#search:focus-within {
+  border-color: var(--primary);
+  background: rgba(173, 198, 255, 0.06);
+}
+#search-input {
+  flex: 1;
+  background: transparent;
+  border: 0;
+  outline: 0;
+  padding: 10px 14px;
+  color: var(--on-surface);
+  font-family: inherit;
+  font-size: 13px;
+  font-feature-settings: "tnum";
+}
+#search-input::placeholder {
+  color: var(--outline-strong);
+}
+#search button {
+  appearance: none;
+  background: transparent;
+  border: 0;
+  padding: 0 14px;
+  color: var(--primary);
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: color 120ms ease;
+}
+#search button:hover { color: white; }
+
+.search-error {
+  margin-top: 8px;
+  font-size: 12px;
+  color: #ffb4ab;
+}
+.search-error.hidden { display: none; }
+
+#about-trigger {
+  appearance: none;
+  background: transparent;
+  border: 0;
+  padding: 12px 0 0;
+  margin: 4px 0 0;
+  color: var(--on-surface-variant);
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  text-align: left;
+  transition: color 120ms ease;
+}
+#about-trigger:hover { color: var(--primary); }
+
+#about-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(7, 9, 14, 0.6);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 20;
+  animation: fadeIn 160ms ease;
+}
+#about-backdrop.hidden { display: none; }
+
+#about-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: min(560px, calc(100vw - 32px));
+  max-height: calc(100vh - 64px);
+  overflow-y: auto;
+  padding: 28px 32px 24px;
+  z-index: 21;
+  animation: rise 180ms ease;
+}
+#about-modal.hidden { display: none; }
+
+#about-modal h2 {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  margin: 4px 0 18px;
+}
+#about-modal h3 {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--primary);
+  margin: 22px 0 8px;
+}
+#about-modal p, #about-modal ul {
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--on-surface-variant);
+  margin: 0 0 8px;
+}
+#about-modal ul {
+  padding-left: 18px;
+}
+#about-modal li { margin-bottom: 4px; }
+#about-modal strong { color: var(--on-surface); font-weight: 600; }
+#about-modal em { font-style: normal; color: var(--on-surface); }
+#about-modal a { color: var(--primary); }
+
+#about-close {
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  appearance: none;
+  background: transparent;
+  border: 0;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  color: var(--on-surface-variant);
+  font-size: 22px;
+  font-weight: 400;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 120ms ease, color 120ms ease;
+}
+#about-close:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--on-surface);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes rise {
+  from { opacity: 0; transform: translate(-50%, -46%); }
+  to { opacity: 1; transform: translate(-50%, -50%); }
+}
+
+#legend {
+  top: 16px;
+  right: 16px;
+  width: 220px;
+}
+.legend-scale {
+  height: 10px;
+  border-radius: 2px;
+  background: linear-gradient(
+    to right,
+    #4edea3 0%,
+    #c1d860 25%,
+    #f0c060 50%,
+    #e08040 75%,
+    #d04040 100%
+  );
+  margin-top: 4px;
+}
+.legend-axis {
+  display: flex;
+  justify-content: space-between;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  font-feature-settings: "tnum";
+  color: var(--on-surface-variant);
+  margin-top: 6px;
+}
+.legend-unit {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--outline-strong);
+  margin-top: 4px;
+  text-align: right;
+}
+
+#status {
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid var(--panel-border);
+  font-size: 12px;
+  line-height: 1.45;
+  color: var(--on-surface-variant);
+  font-feature-settings: "tnum";
+  min-height: 32px;
+}
+
+.reach-head {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--on-surface-variant);
+  margin-bottom: 8px;
+}
+.reach-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.reach-row {
+  display: grid;
+  grid-template-columns: 50px 1fr 38px;
+  align-items: baseline;
+  font-feature-settings: "tnum";
+  padding: 4px 8px;
+  background: rgba(255,255,255,0.03);
+  border-radius: 4px;
+}
+.reach-row .reach-time {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--on-surface-variant);
+}
+.reach-row .reach-area {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--on-surface);
+  letter-spacing: -0.01em;
+}
+.reach-row .reach-pct {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--outline-strong);
+  text-align: right;
+}
+.reach-foot {
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  color: var(--outline-strong);
+  margin-top: 8px;
+  text-align: right;
+}
+
+#tooltip {
+  position: fixed;
+  pointer-events: none;
+  background: var(--panel-bg);
+  backdrop-filter: var(--panel-blur);
+  -webkit-backdrop-filter: var(--panel-blur);
+  border: 1px solid var(--panel-border);
+  border-radius: var(--r-sm);
+  padding: 6px 10px;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  font-feature-settings: "tnum";
+  letter-spacing: -0.01em;
+  color: var(--on-surface);
+  z-index: 10;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.45);
+  white-space: nowrap;
+}
+#tooltip.hidden { display: none; }
+#tooltip strong { color: var(--primary); font-weight: 700; }
+#tooltip em { color: var(--on-surface-variant); font-style: normal; font-weight: 500; }
+
+#attrib {
+  position: absolute;
+  bottom: 12px;
+  right: 16px;
+  font-size: 10px;
+  letter-spacing: 0.02em;
+  color: var(--outline-strong);
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  padding: 4px 10px;
+  border-radius: var(--r-sm);
+}
+#attrib a { color: var(--on-surface-variant); text-decoration: none; }
+#attrib a:hover { color: var(--primary); }
+
+/* Tame the MapLibre default control to match the dark theme. */
+.maplibregl-ctrl-group {
+  background: var(--panel-bg) !important;
+  backdrop-filter: var(--panel-blur);
+  -webkit-backdrop-filter: var(--panel-blur);
+  border: 1px solid var(--panel-border) !important;
+  border-radius: var(--r-sm) !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3) !important;
+}
+.maplibregl-ctrl-group button {
+  background: transparent !important;
+}
+.maplibregl-ctrl-group button + button {
+  border-top: 1px solid var(--panel-border) !important;
+}
+/* Invert the dark default icons so they read on the dark panel. */
+.maplibregl-ctrl-group button .maplibregl-ctrl-icon {
+  filter: invert(1) brightness(1.1);
+  opacity: 0.85;
+}
+.maplibregl-ctrl-group button:hover .maplibregl-ctrl-icon {
+  opacity: 1;
+}
+.maplibregl-ctrl-attrib { display: none !important; }
+
+@media (max-width: 720px) {
+  #title-card, #legend { width: calc(100vw - 32px); }
+  #legend { top: auto; bottom: 16px; right: 16px; }
+}

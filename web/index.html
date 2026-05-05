@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sheffield by public transport</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" />
+    <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@4.7.0/dist/maplibre-gl.css" />
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body>
+    <div id="app">
+      <div id="map"></div>
+
+      <section id="title-card" class="panel">
+        <div class="eyebrow">Sheffield · public transport</div>
+        <h1>How long to&nbsp;get there?</h1>
+        <p>Click the map or search a place. Colours show travel time from there to every other point at <strong><span id="dep-time">08:30</span></strong> on a weekday, by bus, tram and walking.</p>
+        <form id="search" autocomplete="off" novalidate>
+          <input id="search-input" type="text" placeholder="Postcode or place — e.g. S1 2HH, Hillsborough" spellcheck="false" />
+          <button type="submit" aria-label="Search">→</button>
+        </form>
+        <div id="search-error" class="search-error hidden"></div>
+        <button id="about-trigger" type="button">How this works ↗</button>
+      </section>
+
+      <div id="about-backdrop" class="hidden" aria-hidden="true"></div>
+      <aside id="about-modal" class="panel hidden" role="dialog" aria-modal="true" aria-labelledby="about-title">
+        <button id="about-close" type="button" aria-label="Close">×</button>
+        <div class="eyebrow">Methodology</div>
+        <h2 id="about-title">How this works</h2>
+
+        <h3>What you're seeing</h3>
+        <p>A snapshot of how long it takes to get from any point in Sheffield to every other point by public transport. Click anywhere to set the starting point — colours show travel time to other parts of the city.</p>
+
+        <h3>Data</h3>
+        <ul>
+          <li><strong>Bus + tram timetables</strong> — <a href="https://www.bus-data.dft.gov.uk/" target="_blank" rel="noopener">Bus Open Data Service</a> (DfT, Open Government Licence)</li>
+          <li><strong>Walking network</strong> — <a href="https://openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a>, South Yorkshire extract via <a href="https://download.geofabrik.de/" target="_blank" rel="noopener">Geofabrik</a></li>
+          <li><strong>City boundary</strong> — ONS Local Authority District (E08000019), Dec 2024 release</li>
+          <li><strong>Transit overlay</strong> — 188 routes (4&nbsp;tram, 184&nbsp;bus) from GTFS shape geometries</li>
+        </ul>
+
+        <h3>Routing</h3>
+        <p>Travel times are computed by <a href="https://github.com/conveyal/r5" target="_blank" rel="noopener">Conveyal R5</a> via <a href="https://github.com/r5py/r5py" target="_blank" rel="noopener">r5py</a>. For every cell in a 3,935-cell H3&nbsp;res-9 hex grid (~175&nbsp;m hexes) we compute the time to every other cell — <strong>15.5&nbsp;million</strong> journeys, around 30&nbsp;minutes of compute on a laptop.</p>
+
+        <h3>Why "median"</h3>
+        <p>The exact answer depends on the minute you set off — buses don't come continuously. R5 computes the journey for <em>every minute</em> in a 60-minute window starting Tue&nbsp;19&nbsp;May&nbsp;2026 at 08:30, then reports the median. Read it as: <em>"on a typical morning around 08:30, half the time you'd get there in ≤&nbsp;X&nbsp;min."</em></p>
+
+        <h3>Caveats</h3>
+        <ul>
+          <li>Single timetable snapshot — no real-time, no disruptions, no fares.</li>
+          <li>Walking legs capped at 30&nbsp;min — purely walking trips beyond that are excluded.</li>
+          <li>Routes leaving the LAD boundary are clipped — neighbouring towns aren't represented.</li>
+        </ul>
+
+        <h3>Source code</h3>
+        <p>The pipeline (Python) and the web app (TypeScript&nbsp;+&nbsp;MapLibre) are open source — see the project README in the repo.</p>
+      </aside>
+
+      <section id="legend" class="panel">
+        <div class="eyebrow">Travel time</div>
+        <div class="legend-scale"></div>
+        <div class="legend-axis"><span>0</span><span>30</span><span>60</span><span>90+</span></div>
+        <div class="legend-unit">minutes</div>
+        <div id="status"></div>
+      </section>
+
+      <div id="tooltip" class="hidden"></div>
+
+      <footer id="attrib">
+        Timetables <a href="https://www.bus-data.dft.gov.uk/" target="_blank" rel="noopener">BODS</a>
+        · Routing <a href="https://github.com/conveyal/r5" target="_blank" rel="noopener">R5</a>
+        · Tiles © <a href="https://openstreetmap.org/copyright" target="_blank" rel="noopener">OSM</a> · <a href="https://carto.com/attributions" target="_blank" rel="noopener">CARTO</a>
+      </footer>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

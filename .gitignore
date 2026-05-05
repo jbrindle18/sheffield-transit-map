@@ -1,0 +1,23 @@
+# Pipeline artefacts — large GTFS / OSM / matrix files, regenerate with the pipeline.
+data/raw/*
+data/intermediate/*
+!data/raw/.gitkeep
+!data/intermediate/.gitkeep
+
+# web/public/data IS committed — it's what GitHub Pages serves.
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Node
+web/node_modules/
+web/dist/
+
+# Editor / OS
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

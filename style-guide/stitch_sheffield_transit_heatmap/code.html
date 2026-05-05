@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Methodology &amp; About - Transit Analytics</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&amp;family=Space+Grotesk:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-fixed": "#d8e2ff",
+                        "on-primary-fixed": "#001a42",
+                        "surface-container-high": "#2a2a2a",
+                        "surface-container": "#201f1f",
+                        "on-error": "#690005",
+                        "on-tertiary-fixed": "#311400",
+                        "surface-bright": "#3a3939",
+                        "on-error-container": "#ffdad6",
+                        "surface-variant": "#353534",
+                        "surface-container-lowest": "#0e0e0e",
+                        "on-primary": "#002e6a",
+                        "on-surface": "#e5e2e1",
+                        "primary": "#adc6ff",
+                        "on-secondary-container": "#00311f",
+                        "secondary-fixed": "#6ffbbe",
+                        "on-primary-fixed-variant": "#004395",
+                        "surface-tint": "#adc6ff",
+                        "secondary-container": "#00a572",
+                        "surface-container-highest": "#353534",
+                        "on-tertiary-container": "#461f00",
+                        "primary-fixed-dim": "#adc6ff",
+                        "on-tertiary-fixed-variant": "#723600",
+                        "on-primary-container": "#00285d",
+                        "inverse-primary": "#005ac2",
+                        "secondary": "#4edea3",
+                        "on-secondary-fixed": "#002113",
+                        "background": "#131313",
+                        "inverse-on-surface": "#313030",
+                        "outline": "#8c909f",
+                        "inverse-surface": "#e5e2e1",
+                        "tertiary-fixed-dim": "#ffb786",
+                        "on-surface-variant": "#c2c6d6",
+                        "surface-container-low": "#1c1b1b",
+                        "on-background": "#e5e2e1",
+                        "surface": "#131313",
+                        "tertiary-container": "#df7412",
+                        "primary-container": "#4d8eff",
+                        "on-secondary-fixed-variant": "#005236",
+                        "tertiary-fixed": "#ffdcc6",
+                        "on-tertiary": "#502400",
+                        "error": "#ffb4ab",
+                        "tertiary": "#ffb786",
+                        "error-container": "#93000a",
+                        "outline-variant": "#424754",
+                        "secondary-fixed-dim": "#4edea3",
+                        "on-secondary": "#003824",
+                        "surface-dim": "#131313"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "element-gap": "12px",
+                        "panel-width-fixed": "360px",
+                        "floating-margin": "16px",
+                        "unit": "4px",
+                        "container-padding": "24px"
+                    },
+                    "fontFamily": {
+                        "label-caps": ["Space Grotesk"],
+                        "body-sm": ["Inter"],
+                        "body-main": ["Inter"],
+                        "display-time": ["Space Grotesk"],
+                        "headline-panel": ["Space Grotesk"],
+                        "data-tabular": ["Inter"]
+                    },
+                    "fontSize": {
+                        "label-caps": ["10px", { "lineHeight": "12px", "letterSpacing": "0.08em", "fontWeight": "700" }],
+                        "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }],
+                        "body-main": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "display-time": ["48px", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-panel": ["18px", { "lineHeight": "24px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+                        "data-tabular": ["13px", { "lineHeight": "16px", "letterSpacing": "-0.01em", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            background-image: linear-gradient(to bottom right, #0e0e0e, #131313);
+        }
+        .glass-panel {
+            background: rgba(23, 23, 23, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .text-glow {
+            text-shadow: 0 0 30px rgba(59, 130, 246, 0.3);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-main antialiased min-h-screen overflow-x-hidden">
+<!-- TopNavBar -->
+<header class="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-3 max-w-[calc(100%-2rem)] mx-auto rounded-lg mt-4 border border-white/10 shadow-[0_0_30px_rgba(59,130,246,0.05)] bg-neutral-950/70 backdrop-blur-xl">
+<div class="flex items-center gap-element-gap">
+<span class="font-headline-panel text-headline-panel text-neutral-50 dark:text-white font-bold tracking-tight">Sheffield Transit</span>
+</div>
+<div class="flex-1 max-w-md mx-8 relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant" style="font-variation-settings: 'FILL' 0;">search</span>
+<input class="w-full bg-surface-container-high/50 border border-white/10 rounded-full py-1.5 pl-10 pr-4 text-body-sm font-body-sm text-on-surface focus:outline-none focus:border-primary/50 transition-colors placeholder:text-on-surface-variant" placeholder="Search..." type="text"/>
+</div>
+<div class="flex items-center gap-4 text-neutral-400 dark:text-neutral-500">
+<button class="hover:bg-white/5 transition-colors p-2 rounded-full flex items-center justify-center active:scale-95 transition-all">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">notifications</span>
+</button>
+<button class="hover:bg-white/5 transition-colors p-2 rounded-full flex items-center justify-center active:scale-95 transition-all">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">account_circle</span>
+</button>
+</div>
+</header>
+<!-- SideNavBar & Main Content Wrapper -->
+<div class="flex h-screen pt-[100px]">
+<!-- SideNavBar -->
+<nav class="fixed left-4 top-24 bottom-4 w-[360px] rounded-lg border border-white/10 shadow-[0_0_30px_rgba(59,130,246,0.05)] bg-neutral-950/70 backdrop-blur-xl flex flex-col h-full py-8 border-r border-white/10 z-40 hidden md:flex">
+<div class="px-6 mb-8">
+<h2 class="text-lg font-black text-white font-headline-panel text-headline-panel uppercase tracking-tight">Analytics</h2>
+<p class="text-on-surface-variant font-label-caps text-label-caps mt-1">Sheffield V1.0</p>
+</div>
+<div class="flex-1 overflow-y-auto">
+<ul class="space-y-1">
+<li>
+<a class="flex items-center gap-3 text-neutral-400 hover:text-white px-6 py-4 hover:bg-white/5 transition-all duration-200 cursor-pointer active:opacity-80 font-label-caps text-label-caps uppercase tracking-widest" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">map</span>
+                            Map
+                        </a>
+</li>
+<li>
+<a class="flex items-center gap-3 text-neutral-400 hover:text-white px-6 py-4 hover:bg-white/5 transition-all duration-200 cursor-pointer active:opacity-80 font-label-caps text-label-caps uppercase tracking-widest" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">directions_bus</span>
+                            Routes
+                        </a>
+</li>
+<li>
+<a class="flex items-center gap-3 text-neutral-400 hover:text-white px-6 py-4 hover:bg-white/5 transition-all duration-200 cursor-pointer active:opacity-80 font-label-caps text-label-caps uppercase tracking-widest" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">layers</span>
+                            Layers
+                        </a>
+</li>
+<li>
+<a class="flex items-center gap-3 bg-blue-500/10 text-blue-500 border-l-4 border-blue-500 px-6 py-4 hover:bg-white/5 transition-all duration-200 cursor-pointer active:opacity-80 font-label-caps text-label-caps uppercase tracking-widest" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">menu_book</span>
+                            Methodology
+                        </a>
+</li>
+</ul>
+</div>
+<div class="px-6 mt-auto pt-6 border-t border-white/5">
+<button class="w-full bg-primary hover:bg-primary-container text-on-primary-fixed font-data-tabular text-data-tabular py-3 rounded-DEFAULT transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 0;">add</span>
+                    New Analysis
+                </button>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="ml-0 md:ml-[390px] flex-1 p-8 overflow-y-auto w-full max-w-7xl relative z-10">
+<header class="mb-16">
+<h1 class="font-display-time text-display-time text-white mb-4 text-glow">Methodology &amp; Engine</h1>
+<p class="font-body-main text-body-main text-on-surface-variant max-w-2xl leading-relaxed">
+                    A technical breakdown of the Transit Analytics platform. This document outlines the data structures, processing algorithms, and architectural decisions that power our high-performance spatial analysis and isochrone generation.
+                </p>
+</header>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+<!-- Table of Contents (Sticky) -->
+<aside class="lg:col-span-3 hidden lg:block">
+<div class="sticky top-32 glass-panel rounded-lg p-6">
+<h3 class="font-label-caps text-label-caps text-primary mb-6 border-b border-white/10 pb-2">Contents</h3>
+<ul class="space-y-4 font-body-sm text-body-sm text-on-surface-variant">
+<li><a class="hover:text-primary transition-colors block border-l-2 border-primary pl-3 text-white" href="#overview">System Architecture</a></li>
+<li><a class="hover:text-primary transition-colors block border-l-2 border-transparent pl-3" href="#data-integration">Data Integration Layer</a></li>
+<li><a class="hover:text-primary transition-colors block border-l-2 border-transparent pl-3" href="#isochrone">Isochrone Processing Engine</a></li>
+<li><a class="hover:text-primary transition-colors block border-l-2 border-transparent pl-3" href="#rendering">Rendering Pipeline</a></li>
+</ul>
+</div>
+</aside>
+<!-- Editorial Content -->
+<article class="lg:col-span-9 space-y-16 pb-24">
+<!-- Section: Overview -->
+<section class="scroll-mt-32" id="overview">
+<h2 class="font-headline-panel text-headline-panel text-white mb-6 flex items-center gap-3">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">account_tree</span>
+                            System Architecture
+                        </h2>
+<div class="glass-panel rounded-xl p-8 mb-8 relative overflow-hidden group">
+<!-- Decorative background blur -->
+<div class="absolute -right-20 -top-20 w-64 h-64 bg-primary/5 rounded-full blur-[80px] group-hover:bg-primary/10 transition-colors duration-500"></div>
+<p class="font-body-main text-body-main text-on-surface leading-relaxed relative z-10 mb-6">
+                                The platform is built on a distributed, microservices architecture designed to handle large-scale spatial queries in real-time. By separating the data ingestion pipeline from the client-facing rendering engine, we ensure low-latency interactions even when processing complex multi-modal transit networks.
+                            </p>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4 relative z-10">
+<div class="bg-surface-container-low border border-white/5 rounded-lg p-4">
+<h4 class="font-data-tabular text-data-tabular text-primary mb-2">Latency</h4>
+<p class="font-display-time text-display-time text-white text-3xl">&lt;50ms</p>
+<p class="font-label-caps text-label-caps text-on-surface-variant mt-1">P95 Render Target</p>
+</div>
+<div class="bg-surface-container-low border border-white/5 rounded-lg p-4">
+<h4 class="font-data-tabular text-data-tabular text-secondary mb-2">Throughput</h4>
+<p class="font-display-time text-display-time text-white text-3xl">10k+</p>
+<p class="font-label-caps text-label-caps text-on-surface-variant mt-1">Queries / Sec</p>
+</div>
+<div class="bg-surface-container-low border border-white/5 rounded-lg p-4">
+<h4 class="font-data-tabular text-data-tabular text-tertiary mb-2">Uptime</h4>
+<p class="font-display-time text-display-time text-white text-3xl">99.99%</p>
+<p class="font-label-caps text-label-caps text-on-surface-variant mt-1">SLA Guarantee</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Section: Data Integration Layer -->
+<section class="scroll-mt-32" id="data-integration">
+<h2 class="font-headline-panel text-headline-panel text-white mb-6 flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">database</span>
+                            Data Integration Layer (GTFS)
+                        </h2>
+<div class="prose prose-invert max-w-none font-body-main text-body-main text-on-surface leading-relaxed mb-8">
+<p class="mb-4">
+                                Our data layer ingests General Transit Feed Specification (GTFS) static and real-time feeds. We normalize this data into a unified, graph-based schema optimized for rapid traversal. The ingestion process handles spatial indexing, schedule unrolling, and anomaly detection.
+                            </p>
+</div>
+<!-- Code/Tech Block representation -->
+<div class="glass-panel rounded-xl p-6 font-mono text-body-sm text-body-sm text-on-surface-variant overflow-x-auto border-l-4 border-l-secondary">
+<div class="flex items-center justify-between mb-4 pb-2 border-b border-white/10">
+<span class="font-label-caps text-label-caps text-secondary">Schema Definition snippet</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 0;">content_copy</span>
+</div>
+<pre><code>type TransitNode struct {
+    ID          string      `json:"stop_id"`
+    Location    GeoPoint    `json:"location"` // Indexed via H3
+    Edges       []Edge      `json:"connections"`
+    Properties  StopMeta    `json:"metadata"`
+}
+
+// Graph traversal occurs purely in-memory
+// utilizing compressed sparse row (CSR) format
+// for adjacency matrices.</code></pre>
+</div>
+</section>
+<!-- Section: Isochrone Processing Engine -->
+<section class="scroll-mt-32" id="isochrone">
+<h2 class="font-headline-panel text-headline-panel text-white mb-6 flex items-center gap-3">
+<span class="material-symbols-outlined text-tertiary" style="font-variation-settings: 'FILL' 1;">radar</span>
+                            Isochrone Processing Engine
+                        </h2>
+<div class="glass-panel rounded-xl p-8 mb-8">
+<p class="font-body-main text-body-main text-on-surface leading-relaxed mb-6">
+                                The core of our spatial analysis is a custom implementation of the RAPTOR (Round-Based Public Transit Routing) algorithm, heavily modified for many-to-many shortest path calculations. It computes travel time polygons (isochrones) dynamically based on user-defined time thresholds and modal parameters.
+                            </p>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-8">
+<!-- Feature Card 1 -->
+<div class="bg-surface-container/50 border border-white/5 rounded-lg p-5 hover:bg-white/5 transition-colors group">
+<div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 0;">speed</span>
+</div>
+<h4 class="font-data-tabular text-data-tabular text-white mb-2">Parallel Processing</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Queries are distributed across worker nodes, allowing for simultaneous calculation of multi-modal routes (walking + transit) across the entire grid.</p>
+</div>
+<!-- Feature Card 2 -->
+<div class="bg-surface-container/50 border border-white/5 rounded-lg p-5 hover:bg-white/5 transition-colors group">
+<div class="w-10 h-10 rounded-full bg-secondary/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 0;">grid_on</span>
+</div>
+<h4 class="font-data-tabular text-data-tabular text-white mb-2">H3 Hexagonal Indexing</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">We utilize Uber's H3 grid system for spatial bucketing, ensuring consistent area representations and significantly accelerating spatial joins.</p>
+</div>
+</div>
+</div>
+<!-- Visual representation of Isochrone generation -->
+<div class="w-full h-64 rounded-xl glass-panel relative overflow-hidden flex items-center justify-center border-t-2 border-t-tertiary">
+<div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAwIDEwIEwgNDAgMTAgTSAxMCAwIEwgMTAgNDAiIGZpbGw9Im5vbmUiIHN0cm9rZT0icmdiYSgyNTUsMjU1LDI1NSwwLjA1KSIgc3Ryb2tlLXdpZHRoPSIxIi8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyaWQpIi8+PC9zdmc+')] opacity-50"></div>
+<!-- Abstract Isochrone Rings -->
+<div class="absolute w-12 h-12 bg-white rounded-full blur-[2px] z-20"></div>
+<div class="absolute w-32 h-32 border-2 border-tertiary/80 rounded-full opacity-80 z-10" style="border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;"></div>
+<div class="absolute w-48 h-48 border-2 border-tertiary/40 rounded-full opacity-60 z-10" style="border-radius: 60% 40% 30% 70% / 50% 40% 50% 60%;"></div>
+<div class="absolute w-64 h-64 border-2 border-tertiary/20 rounded-full opacity-40 z-10" style="border-radius: 50% 50% 60% 40% / 60% 30% 70% 40%;"></div>
+<div class="absolute bottom-4 left-4 bg-surface-container/80 backdrop-blur px-3 py-1.5 rounded border border-white/10 flex items-center gap-2 z-30">
+<span class="w-3 h-3 rounded-full bg-tertiary"></span>
+<span class="font-label-caps text-label-caps text-white">15 Min Threshold</span>
+</div>
+</div>
+</section>
+</article>
+</div>
+</main>
+</div>
+</body></html>
